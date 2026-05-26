@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>홍길동 | Frontend Developer</title>
+  <meta name="description" content="사용자 경험을 고민하는 웹 프론트엔드 개발자 홍길동의 이력서" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="홍길동 | Frontend Developer" />
+  <meta property="og:description" content="사용자 경험을 고민하는 웹 프론트엔드 개발자 홍길동의 이력서" />
+  <meta property="og:locale" content="ko_KR" />
+
+  <!-- Favicon (간단한 인라인 SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text x=%2250%25%22 y=%2255%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2222%22>%F0%9F%92%BB</text></svg>" />
+
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard Variable', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            // 메인 브랜드 (이미지의 보라 톤)
+            brand: {
+              50:  '#f3eaff',
+              100: '#e2cfff',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+            },
+            // 액센트 그라데이션 stop
+            accent: {
+              violet: '#a855f7',
+              cyan:   '#22d3ee',
+              pink:   '#f472b6',
+            },
+            // 다크 베이스 (deep purple/navy)
+            ink: {
+              900: '#0b0716',
+              800: '#140a26',
+              700: '#1d0f38',
+              600: '#2a164f',
+            },
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- 커스텀 스타일 -->
+  <link rel="stylesheet" href="styles/custom.css" />
+
+  <!-- 다크모드 깜빡임 방지: 초기 테마를 페인트 전에 결정 (기본 다크) -->
+  <script>
+    (function () {
+      try {
+        const stored = localStorage.getItem('theme');
+        // 저장된 값이 없으면 다크가 기본
+        if (stored === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (_) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+
+<body class="font-sans antialiased relative overflow-x-hidden">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded">본문 바로가기</a>
+
+  <!-- ===== 전역 배경 레이어 (그리드 + 글로우 블롭) ===== -->
+  <div aria-hidden="true" class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <div class="absolute inset-0 bg-grid"></div>
+    <div class="blob blob-violet w-[520px] h-[520px] -top-32 -right-32"></div>
+    <div class="blob blob-cyan   w-[420px] h-[420px] top-1/3 -left-32"></div>
+    <div class="blob blob-pink   w-[360px] h-[360px] bottom-0 right-1/4 opacity-70"></div>
+  </div>
+
+  <!-- ===== Header / 플로팅 캡슐 네비게이션 ===== -->
+  <header
+    id="site-header"
+    class="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1.5rem)] max-w-3xl"
+  >
+    <nav class="glass-capsule rounded-full px-3 sm:px-5 h-14 flex items-center justify-between gap-2" aria-label="주요 메뉴">
+      <a href="#header-hero" class="px-3 py-1.5 font-bold text-base tracking-tight">
+        <span class="gradient-text-cool">홍길동</span><span class="text-slate-400">.dev</span>
+      </a>
+
+      <!-- 데스크탑 메뉴 -->
+      <ul class="hidden md:flex items-center gap-1 text-sm">
+        <li><a href="#about" class="px-3 py-2 rounded-full hover:text-white text-slate-300 dark:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet" data-nav-link>About</a></li>
+        <li><a href="#skills" class="px-3 py-2 rounded-full hover:text-white text-slate-300 dark:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet" data-nav-link>Skills</a></li>
+        <li><a href="#experience" class="px-3 py-2 rounded-full hover:text-white text-slate-300 dark:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet" data-nav-link>Experience</a></li>
+        <li><a href="#projects" class="px-3 py-2 rounded-full hover:text-white text-slate-300 dark:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet" data-nav-link>Projects</a></li>
+        <li><a href="#contact" class="px-3 py-2 rounded-full hover:text-white text-slate-300 dark:text-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet" data-nav-link>Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-1">
+        <!-- 다크모드 토글 -->
+        <button
+          id="theme-toggle"
+          type="button"
+          class="p-2 rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+          aria-label="다크 모드 전환"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 block dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+
+        <!-- 모바일 햄버거 -->
+        <button
+          id="mobile-menu-button"
+          type="button"
+          class="md:hidden p-2 rounded-full hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+          aria-label="메뉴 열기"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 모바일 메뉴 패널 -->
+    <div
+      id="mobile-menu"
+      class="md:hidden hidden mt-2 glass-card rounded-2xl"
+    >
+      <ul class="p-2 flex flex-col gap-1 text-sm">
+        <li><a href="#about" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>About</a></li>
+        <li><a href="#skills" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>Skills</a></li>
+        <li><a href="#experience" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>Experience</a></li>
+        <li><a href="#projects" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>Projects</a></li>
+        <li><a href="#education" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>Education</a></li>
+        <li><a href="#contact" class="block px-4 py-2 rounded-xl hover:bg-white/5 text-slate-200" data-nav-link>Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== 1. Header / Hero ===== -->
+    <section
+      id="header-hero"
+      class="scroll-mt-24 relative min-h-screen flex items-center"
+    >
+      <div class="max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-32 md:py-40 grid md:grid-cols-[1.4fr,1fr] gap-12 md:gap-16 items-center">
+        <div data-animate>
+          <p class="text-sm md:text-base font-medium tracking-widest uppercase gradient-text-cool mb-4">Frontend Developer</p>
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
+            안녕하세요,<br />
+            <span class="gradient-text-cool">홍길동</span>입니다.
+          </h1>
+          <p class="mt-6 text-lg md:text-xl text-slate-300 dark:text-slate-300 max-w-xl leading-relaxed">
+            사용자 경험을 고민하는 웹 개발자입니다.<br class="hidden sm:block" />
+            깔끔한 코드와 세련된 인터페이스로 가치를 만듭니다.
+          </p>
+
+          <!-- CTA 버튼 -->
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href="#contact" class="btn-gradient inline-flex items-center justify-center px-6 py-3 rounded-full font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900">
+              Contact
+            </a>
+            <a href="#projects" class="btn-outline-glass inline-flex items-center justify-center px-6 py-3 rounded-full font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet">
+              View Projects
+            </a>
+          </div>
+
+          <!-- SNS 링크 -->
+          <ul class="mt-10 flex items-center gap-3" aria-label="SNS 링크">
+            <li>
+              <a
+                href="mailto:example@email.com"
+                class="btn-outline-glass inline-flex items-center justify-center w-11 h-11 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+                aria-label="이메일 보내기"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-10 6L2 7" />
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://github.com/username"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-outline-glass inline-flex items-center justify-center w-11 h-11 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+                aria-label="GitHub 프로필 (새 창)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z"/>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://blog.example.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-outline-glass inline-flex items-center justify-center w-11 h-11 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+                aria-label="블로그 (새 창)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 11a9 9 0 0 1 9 9" />
+                  <path d="M4 4a16 16 0 0 1 16 16" />
+                  <circle cx="5" cy="19" r="1" />
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 프로필 이미지 -->
+        <div data-animate class="relative">
+          <!-- 프로필 뒤 글로우 -->
+          <div aria-hidden="true" class="absolute inset-0 -m-8 blob blob-violet"></div>
+          <div class="relative aspect-square max-w-xs sm:max-w-sm mx-auto rounded-[2rem] overflow-hidden ring-1 ring-white/10 shadow-2xl">
+            <img
+              src="assets/bug.jpg"
+              alt="홍길동 프로필 사진"
+              width="400"
+              height="400"
+              loading="lazy"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. About Me ===== -->
+    <section id="about" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="max-w-3xl mx-auto text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">About</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+          <p class="mt-10 text-lg md:text-xl leading-relaxed text-slate-300 dark:text-slate-300">
+            안녕하세요, 웹 프론트엔드 개발자 <span class="gradient-text-cool font-semibold">홍길동</span>입니다.
+            깔끔한 코드와 좋은 사용자 경험을 만드는 것을 좋아하며,
+            접근성과 디자인의 균형을 늘 고민합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. Skills ===== -->
+    <section id="skills" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">Skills</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+        </div>
+
+        <div class="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="glass-card rounded-2xl p-6 md:p-8">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full" style="background: var(--accent-violet);"></span>
+              <h3 class="text-lg font-semibold">Frontend</h3>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">HTML</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">CSS</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">JavaScript</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">TailwindCSS</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">React</li>
+            </ul>
+          </article>
+
+          <article class="glass-card rounded-2xl p-6 md:p-8">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full" style="background: var(--accent-cyan);"></span>
+              <h3 class="text-lg font-semibold">Tools</h3>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">Git</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">GitHub</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">VS Code</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">Figma</li>
+            </ul>
+          </article>
+
+          <article class="glass-card rounded-2xl p-6 md:p-8">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full" style="background: var(--accent-pink);"></span>
+              <h3 class="text-lg font-semibold">Etc.</h3>
+            </div>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">반응형 웹</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">웹 접근성</li>
+              <li class="px-3 py-1 rounded-full text-sm border border-white/10 bg-white/5 text-slate-200">SEO</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. Experience ===== -->
+    <section id="experience" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">Experience</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+        </div>
+
+        <ol class="mt-14 max-w-3xl mx-auto relative border-l border-white/10 pl-10 space-y-8">
+          <li class="relative">
+            <span class="timeline-dot absolute -left-[44px] top-2" aria-hidden="true"></span>
+            <article class="glass-card rounded-2xl p-6 md:p-8">
+              <p class="text-xs tracking-widest uppercase gradient-text-cool font-medium">2023.01 — 현재</p>
+              <h3 class="mt-2 text-xl font-semibold">○○ 회사 · Frontend Developer</h3>
+              <ul class="mt-4 list-disc list-outside pl-5 text-slate-300 space-y-1.5 marker:text-accent-violet">
+                <li>웹 서비스 프론트엔드 개발 및 유지보수</li>
+                <li>디자인 시스템 기반 컴포넌트 라이브러리 구축</li>
+                <li>접근성 가이드라인 도입 및 점진 적용</li>
+              </ul>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 5. Projects ===== -->
+    <section id="projects" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">Projects</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+        </div>
+
+        <div class="mt-14 grid gap-6 md:gap-8 sm:grid-cols-2">
+          <article class="glass-card rounded-2xl overflow-hidden">
+            <div class="aspect-[16/9] relative flex items-center justify-center" aria-hidden="true">
+              <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,85,247,0.25), rgba(34,211,238,0.15));"></div>
+              <span class="relative text-4xl font-bold gradient-text-cool">Portfolio</span>
+            </div>
+            <div class="p-6 md:p-8">
+              <h3 class="text-lg font-semibold">개인 포트폴리오 사이트</h3>
+              <p class="mt-2 text-slate-300 leading-relaxed">정적 HTML과 TailwindCSS로 제작한 모던 다크 테마 포트폴리오입니다. 글래스모피즘과 그라데이션 액센트로 시각적 깊이를 더했습니다.</p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5">HTML</li>
+                <li class="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5">TailwindCSS</li>
+                <li class="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5">a11y</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="glass-card rounded-2xl overflow-hidden">
+            <div class="aspect-[16/9] relative flex items-center justify-center" aria-hidden="true">
+              <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(34,211,238,0.22), rgba(244,114,182,0.18));"></div>
+              <span class="relative text-4xl font-bold gradient-text-cool">Todo</span>
+            </div>
+            <div class="p-6 md:p-8">
+              <h3 class="text-lg font-semibold">Todo 앱</h3>
+              <p class="mt-2 text-slate-300 leading-relaxed">LocalStorage를 활용해 상태를 영속화하는 바닐라 자바스크립트 Todo 앱. 키보드 단축키와 다크 모드를 지원합니다.</p>
+              <ul class="mt-5 flex flex-wrap gap-2">
+                <li class="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5">JavaScript</li>
+                <li class="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5">LocalStorage</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. Education ===== -->
+    <section id="education" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">Education</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+        </div>
+
+        <ol class="mt-14 max-w-3xl mx-auto relative border-l border-white/10 pl-10">
+          <li class="relative">
+            <span class="timeline-dot absolute -left-[44px] top-2" aria-hidden="true"></span>
+            <article class="glass-card rounded-2xl p-6 md:p-8">
+              <p class="text-xs tracking-widest uppercase gradient-text-cool font-medium">2019 — 2023</p>
+              <h3 class="mt-2 text-xl font-semibold">○○ 대학교 컴퓨터공학과</h3>
+              <p class="mt-2 text-slate-300">웹/모바일 프로그래밍, 자료구조, HCI 관련 과목 중심으로 수강했습니다.</p>
+            </article>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== 7. Contact ===== -->
+    <section id="contact" class="scroll-mt-24 py-24 md:py-32 relative">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-animate>
+        <div class="text-center">
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight gradient-text-cool inline-block">Contact</h2>
+          <div class="gradient-rule mx-auto mt-4" aria-hidden="true"></div>
+          <p class="mt-8 text-slate-300 max-w-xl mx-auto">언제든 편하게 연락 주세요. 새로운 제안과 협업을 환영합니다.</p>
+        </div>
+
+        <ul class="mt-12 grid gap-4 sm:grid-cols-3">
+          <li>
+            <a
+              href="mailto:example@email.com"
+              class="glass-card flex items-center gap-4 p-5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+            >
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl text-white" style="background-image: var(--gradient-cool);" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-10 6L2 7" />
+                </svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs tracking-widest uppercase text-slate-400">Email</span>
+                <span class="block font-medium truncate">example@email.com</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/username"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card flex items-center gap-4 p-5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+            >
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl text-white" style="background-image: var(--gradient-cool);" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.87-1.54-3.87-1.54-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.68.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5Z"/>
+                </svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs tracking-widest uppercase text-slate-400">GitHub</span>
+                <span class="block font-medium truncate">github.com/username</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://blog.example.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="glass-card flex items-center gap-4 p-5 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-violet"
+            >
+              <span class="inline-flex items-center justify-center w-11 h-11 rounded-xl text-white" style="background-image: var(--gradient-cool);" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 11a9 9 0 0 1 9 9" />
+                  <path d="M4 4a16 16 0 0 1 16 16" />
+                  <circle cx="5" cy="19" r="1" />
+                </svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs tracking-widest uppercase text-slate-400">Blog</span>
+                <span class="block font-medium truncate">blog.example.com</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== 8. Footer ===== -->
+  <footer class="border-t border-white/10 py-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-400">
+      © 2026 <span class="gradient-text-cool font-semibold">홍길동</span>. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
